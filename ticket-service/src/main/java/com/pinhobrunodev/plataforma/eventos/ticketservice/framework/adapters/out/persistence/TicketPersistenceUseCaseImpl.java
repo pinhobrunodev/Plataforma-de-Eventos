@@ -27,4 +27,11 @@ public class TicketPersistenceUseCaseImpl implements TicketPersistenceUseCase {
                 .getTicketValue();
 
     }
+
+    @Override
+    public TicketEntity getTicketByEventId(String eventId) {
+        return ticketH2Repository
+                .findTicketEntityByEventId(eventId)
+                .orElseThrow(() -> new RuntimeException("Não existe nenhum ingresso associado a esse evento"));
+    }
 }

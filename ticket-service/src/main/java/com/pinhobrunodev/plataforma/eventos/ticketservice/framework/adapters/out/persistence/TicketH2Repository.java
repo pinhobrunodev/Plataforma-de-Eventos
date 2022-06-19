@@ -12,4 +12,5 @@ public interface TicketH2Repository extends JpaRepository<TicketEntity, UUID> {
     @Query("SELECT DISTINCT obj FROM TicketEntity obj WHERE obj.eventId = :eventId")
     Optional<TicketEntity> findTicketEntityByEventId(String eventId);
 
+
 }

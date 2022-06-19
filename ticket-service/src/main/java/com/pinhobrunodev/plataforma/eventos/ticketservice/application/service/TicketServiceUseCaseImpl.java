@@ -4,6 +4,7 @@ import com.pinhobrunodev.plataforma.eventos.ticketservice.application.ports.in.T
 import com.pinhobrunodev.plataforma.eventos.ticketservice.application.ports.out.TicketPersistenceUseCase;
 import com.pinhobrunodev.plataforma.eventos.ticketservice.domain.dto.request.PersistTicketRequest;
 import com.pinhobrunodev.plataforma.eventos.ticketservice.domain.dto.response.TicketValueResponse;
+import com.pinhobrunodev.plataforma.eventos.ticketservice.domain.kafka.KafkaDto;
 import com.pinhobrunodev.plataforma.eventos.ticketservice.framework.mapper.TicketMapper;
 
 import java.util.Set;
@@ -16,6 +17,13 @@ public class TicketServiceUseCaseImpl implements TicketServiceUseCase {
     public TicketServiceUseCaseImpl(TicketPersistenceUseCase ticketPersistenceUseCase) {
         this.ticketPersistenceUseCase = ticketPersistenceUseCase;
     }
+
+    @Override
+    public void confirmTicketBoughtUpdate(KafkaDto kafkaDto) {
+        var ticketEntity = ticketPersistenceUseCase.getTicketByEventId(kafkaDto.getEventId());
+        ticketPersistenceUseCase.saveTickets(TicketMapper.confirmTicketBoughtUpdateConverter(ticketEntity, kafkaDto));
+    }
+
 
     @Override
     public void persistTicket(Set<PersistTicketRequest> persistTicketRequestSet) {

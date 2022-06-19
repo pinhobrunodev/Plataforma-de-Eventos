@@ -7,4 +7,6 @@ public interface TicketPersistenceUseCase {
     void saveTickets(TicketEntity ticketEntity);
     Double getTicketValueByEventId(String eventId);
 
+    TicketEntity getTicketByEventId(String eventId);
+
 }

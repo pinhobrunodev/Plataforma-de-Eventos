@@ -3,8 +3,10 @@ package com.pinhobrunodev.plataforma.eventos.ticketservice.framework.mapper;
 
 import com.pinhobrunodev.plataforma.eventos.ticketservice.domain.dto.request.PersistTicketRequest;
 import com.pinhobrunodev.plataforma.eventos.ticketservice.domain.entities.TicketEntity;
+import com.pinhobrunodev.plataforma.eventos.ticketservice.domain.kafka.KafkaDto;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,9 +26,22 @@ public class TicketMapper {
                         .ownerEmail(null)
                         .ownerUserId(null)
                         .userBuyerId(null)
+                        .boughtAt(null)
                         .build()
         ));
         return ticketEntities;
+    }
+
+    public static TicketEntity confirmTicketBoughtUpdateConverter(TicketEntity ticketEntity, KafkaDto kafkaDto) {
+        return ticketEntity
+                .builder()
+                .ownerName(kafkaDto.getOwnerName())
+                .ownerCpf(kafkaDto.getUserCpf())
+                .ownerEmail(kafkaDto.getUserEmail())
+                .ownerUserId(kafkaDto.getOwnerUserId())
+                .userBuyerId(kafkaDto.getUserBuyerId())
+                .boughtAt(LocalDateTime.now())
+                .build();
     }
 
 }
