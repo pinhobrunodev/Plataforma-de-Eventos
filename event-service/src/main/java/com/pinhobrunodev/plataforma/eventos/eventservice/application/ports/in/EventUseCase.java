@@ -16,7 +16,7 @@ public interface EventUseCase {
      */
     CreateEventResponse createEvent(CreateEventRequest createEventRequest);
     SubscribeEventResponse subscribeEvent(UUID eventId, SubscribeEventRequest subscribeEventRequest);
-    void reduceEventTicketsRemaining(UUID eventId, ReduceEventTicketsRequest reduceEventTicketsRequest);
+    void reduceEventTicketsRemaining(UUID eventId, Object ticketQuantityToReduce);
 
 
      /*

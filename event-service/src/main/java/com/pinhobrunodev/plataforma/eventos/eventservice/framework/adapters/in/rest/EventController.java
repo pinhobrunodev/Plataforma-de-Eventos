@@ -32,6 +32,7 @@ public class EventController {
 
     @PutMapping(value = "/{eventId}/reduce/tickets")
     public ResponseEntity<Void> reduceTicketsAmount(@PathVariable UUID eventId, @RequestBody ReduceEventTicketsRequest reduceEventTicketsRequest){
+        eventUseCase.reduceEventTicketsRemaining(eventId,reduceEventTicketsRequest);
         return ResponseEntity.noContent().build();
     }
 
