@@ -1,10 +1,7 @@
 package com.pinhobrunodev.plataforma.eventos.eventservice.application.service;
 
 import com.pinhobrunodev.plataforma.eventos.eventservice.application.ports.in.EventUseCase;
-import com.pinhobrunodev.plataforma.eventos.eventservice.application.ports.out.EventKafkaProducerUseCase;
-import com.pinhobrunodev.plataforma.eventos.eventservice.application.ports.out.EventPersistenceUseCase;
-import com.pinhobrunodev.plataforma.eventos.eventservice.application.ports.out.TicketServiceOpenFeignUseCase;
-import com.pinhobrunodev.plataforma.eventos.eventservice.application.ports.out.WalletServiceOpenFeignUseCase;
+import com.pinhobrunodev.plataforma.eventos.eventservice.application.ports.out.*;
 import com.pinhobrunodev.plataforma.eventos.eventservice.domain.dtos.request.CreateEventRequest;
 import com.pinhobrunodev.plataforma.eventos.eventservice.domain.dtos.request.ReduceEventTicketsRequest;
 import com.pinhobrunodev.plataforma.eventos.eventservice.domain.dtos.request.SubscribeEventRequest;
@@ -27,14 +24,18 @@ public class EventUseCaseImpl implements EventUseCase {
 
     public WalletServiceOpenFeignUseCase walletServiceOpenFeignUseCase;
 
+    public AuthUserServiceOpenFeignUseCase userServiceOpenFeignUseCase;
+
     public EventUseCaseImpl(EventPersistenceUseCase eventPersistenceUseCase,
                             EventKafkaProducerUseCase eventKafkaProducerUseCase,
                             TicketServiceOpenFeignUseCase ticketServiceOpenFeignUseCase,
-                            WalletServiceOpenFeignUseCase walletServiceOpenFeignUseCase) {
+                            WalletServiceOpenFeignUseCase walletServiceOpenFeignUseCase,
+                            AuthUserServiceOpenFeignUseCase userServiceOpenFeignUseCase) {
         this.eventPersistenceUseCase = eventPersistenceUseCase;
         this.eventKafkaProducerUseCase = eventKafkaProducerUseCase;
         this.ticketServiceOpenFeignUseCase = ticketServiceOpenFeignUseCase;
         this.walletServiceOpenFeignUseCase = walletServiceOpenFeignUseCase;
+        this.userServiceOpenFeignUseCase = userServiceOpenFeignUseCase;
     }
 
     public EventUseCaseImpl(EventPersistenceUseCase eventPersistenceUseCase) {
@@ -67,14 +68,11 @@ public class EventUseCaseImpl implements EventUseCase {
         if (validAmountForTransactionResponse.getIsValid().booleanValue() == Boolean.TRUE) {
             reduceEventTicketsRemaining(eventId, subscribeEventRequest.getTicketsQuantity());
         }
-        /*
-            TODO: Chamada ao AUTHUSER-SERVICE -> GET /users/cpf/{cpf}
-                  - Capturamos o retorno em um objeto
-         */
-
+        var userByCFP = userServiceOpenFeignUseCase.getUserInfoByCPF(subscribeEventRequest.getUserOwnerCpf());
 
         /*
             TODO: Enviamos para o Kafka um evento para atualizar a base de dados do TICKET-SERVICE
+
          */
         return null;
     }
