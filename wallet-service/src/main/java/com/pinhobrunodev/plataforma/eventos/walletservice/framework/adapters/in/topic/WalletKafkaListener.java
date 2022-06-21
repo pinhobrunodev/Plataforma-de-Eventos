@@ -14,7 +14,7 @@ public class WalletKafkaListener {
     @Autowired
     private WalletUseCase walletUseCase;
 
-    @KafkaListener(topics = "${topic.name}")
+    @KafkaListener(topics = "${open.wallet.topic}")
     public void listen(ConsumerRecord<String, String> payload) {
         final var gson = new Gson();
         var payloadValue = gson.fromJson(payload.value(), KafkaDto.class);

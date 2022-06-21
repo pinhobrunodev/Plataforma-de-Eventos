@@ -3,6 +3,7 @@ package com.pinhobrunodev.plataforma.eventos.authuserservice.framework.mapper;
 import com.pinhobrunodev.plataforma.eventos.authuserservice.domain.dto.request.RegisterUserRequestDTO;
 import com.pinhobrunodev.plataforma.eventos.authuserservice.domain.dto.response.GetUserInfoByCPFResponseDTO;
 import com.pinhobrunodev.plataforma.eventos.authuserservice.domain.entities.UserEntity;
+import com.pinhobrunodev.plataforma.eventos.authuserservice.domain.kafka.KafkaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -39,4 +40,12 @@ public class UserMapper {
     }
 
 
+    public static KafkaDto kafkaDtoConverter(UserEntity userEntity){
+        return KafkaDto
+                .builder()
+                .userId(userEntity.getUserId().toString())
+                .userCpf(userEntity.getUserCpf())
+                .userEmail(userEntity.getUserEmail())
+                .build();
+    }
 }

@@ -1,6 +1,7 @@
 package com.pinhobrunodev.plataforma.eventos.authuserservice.framework.config;
 
 import com.pinhobrunodev.plataforma.eventos.authuserservice.AuthuserServiceApplication;
+import com.pinhobrunodev.plataforma.eventos.authuserservice.application.ports.out.UserKafkaProducerUseCase;
 import com.pinhobrunodev.plataforma.eventos.authuserservice.application.ports.out.UserPersistenceUseCase;
 import com.pinhobrunodev.plataforma.eventos.authuserservice.application.service.UserUseCaseImpl;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class BeanConfiguration {
 
     @Bean
-    public UserUseCaseImpl userUseCase(UserPersistenceUseCase userPersistenceUseCase){
+    public UserUseCaseImpl userUseCase(UserPersistenceUseCase userPersistenceUseCase, UserKafkaProducerUseCase userKafkaProducerUseCase){
 
-        return new UserUseCaseImpl(userPersistenceUseCase);
+        return new UserUseCaseImpl(userPersistenceUseCase,userKafkaProducerUseCase);
     }
 
     @Bean
