@@ -1,13 +1,11 @@
-package com.pinhobrunodev.plataforma.eventos.authservice.domain.dto.request;
+package com.pinhobrunodev.plataforma.eventos.authuserservice.domain.openfeign;
 
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 @Builder
 @Data
-public class CreateUserRequestDTO {
+public class CreateUserRequestToAuthServiceDTO {
 
     private String userId;
     private String userEmail;

@@ -15,11 +15,12 @@ public class UserKafkaProducerUseCaseImpl implements UserKafkaProducerUseCase  {
 
     private final KafkaTemplate<String,String> kafkaTemplate;
 
+
     @Override
     public void produceMessageToOpenWallet(KafkaDto kafkaDto) {
         final var gson = new Gson();
         var payload = gson.toJson(kafkaDto);
-        kafkaTemplate.send("open.wallet.topic",payload);
+        kafkaTemplate.send("create-user-topic",payload);
 
     }
 }

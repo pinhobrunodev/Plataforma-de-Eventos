@@ -1,6 +1,7 @@
 package com.pinhobrunodev.plataforma.eventos.authuserservice.application.service;
 
 import com.pinhobrunodev.plataforma.eventos.authuserservice.application.ports.in.UserUseCase;
+import com.pinhobrunodev.plataforma.eventos.authuserservice.application.ports.out.AuthServiceOpenFeignUseCase;
 import com.pinhobrunodev.plataforma.eventos.authuserservice.application.ports.out.UserKafkaProducerUseCase;
 import com.pinhobrunodev.plataforma.eventos.authuserservice.application.ports.out.UserPersistenceUseCase;
 import com.pinhobrunodev.plataforma.eventos.authuserservice.domain.dto.request.RegisterUserRequestDTO;
@@ -14,16 +15,19 @@ public class UserUseCaseImpl implements UserUseCase {
 
     public UserKafkaProducerUseCase userKafkaProducerUseCase;
 
+    public AuthServiceOpenFeignUseCase authServiceOpenFeignUseCase;
 
-    public UserUseCaseImpl(UserPersistenceUseCase userPersistenceUseCase, UserKafkaProducerUseCase userKafkaProducerUseCase) {
+    public UserUseCaseImpl(UserPersistenceUseCase userPersistenceUseCase, UserKafkaProducerUseCase userKafkaProducerUseCase,AuthServiceOpenFeignUseCase authServiceOpenFeignUseCase) {
         this.userPersistenceUseCase = userPersistenceUseCase;
         this.userKafkaProducerUseCase = userKafkaProducerUseCase;
+        this.authServiceOpenFeignUseCase= authServiceOpenFeignUseCase;
     }
 
 
     @Override
     public RegisterUserResponseDTO registerUser(RegisterUserRequestDTO registerUserRequestDTO) {
         var userEntity = userPersistenceUseCase.persistUser(UserMapper.registerUserConverter(registerUserRequestDTO));
+        authServiceOpenFeignUseCase.createUserToAuthService(UserMapper.sendToAuthUserConverter(userEntity));
         userKafkaProducerUseCase.produceMessageToOpenWallet(UserMapper.kafkaDtoConverter(userEntity));
         return new RegisterUserResponseDTO(userEntity);
     }

@@ -10,9 +10,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
-@Builder
 @Entity
 @Data
+@Table(name = "tb_user")
 public class UserEntity {
 
     @Id

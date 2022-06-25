@@ -3,15 +3,16 @@ package com.pinhobrunodev.plataforma.eventos.walletservice.domain.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
-@Builder
 @Data
 @Entity
+@NoArgsConstructor
 public class WalletEntity {
 
     @Id
