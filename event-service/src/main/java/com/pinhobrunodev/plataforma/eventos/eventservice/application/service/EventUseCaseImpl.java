@@ -80,8 +80,7 @@ public class EventUseCaseImpl implements EventUseCase {
 
     @Override
     public Boolean validateTicketsRemaining(EventEntity eventEntity, Integer ticketsQuantityToBuy) {
-        if (eventEntity.getTicketRemaining() >= ticketsQuantityToBuy) return true;
-        return false;
+        return eventEntity.getTicketRemaining() >= ticketsQuantityToBuy;
     }
 
 
