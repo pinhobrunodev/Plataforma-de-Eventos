@@ -16,7 +16,7 @@ public class TicketServiceListener {
     @Autowired
     private TicketServiceUseCase ticketServiceUseCase;
 
-    @KafkaListener(topics = "${topic.name}")
+    @KafkaListener(topics = "success-buy-topic",groupId = "ticket-success-bought-group")
     public  void listen (ConsumerRecord<String,String> payload){
         final var gson = new Gson();
         var payloadValue = gson.fromJson(payload.value(), KafkaDto.class);

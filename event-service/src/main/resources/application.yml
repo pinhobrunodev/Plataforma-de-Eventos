@@ -14,7 +14,7 @@ jwt:
 
 ticket:
   service:
-    endpoint: http://localhost:8084
+    endpoint: http://localhost:8085
 user:
   service:
     endpoint: http://localhost:8081

@@ -15,7 +15,6 @@ public class TicketPersistenceUseCaseImpl implements TicketPersistenceUseCase {
 
     @Override
     public void saveTickets(TicketEntity ticketEntity) {
-        log.info("Tickets to be persisted: {}", ticketEntity);
         ticketH2Repository.save(ticketEntity);
     }
 

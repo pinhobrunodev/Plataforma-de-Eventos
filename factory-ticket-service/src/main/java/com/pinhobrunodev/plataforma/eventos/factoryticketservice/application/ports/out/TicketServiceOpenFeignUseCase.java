@@ -6,6 +6,6 @@ import java.util.Set;
 
 public interface TicketServiceOpenFeignUseCase {
 
-    void persistTickets(Set<CreateTicketRequest> createTicketRequestSet);
+    void persistTickets(String access_token, Set<CreateTicketRequest> createTicketRequestSet);
 
 }

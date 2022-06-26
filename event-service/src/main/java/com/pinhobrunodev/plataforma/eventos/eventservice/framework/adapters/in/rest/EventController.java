@@ -23,8 +23,8 @@ public class EventController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(value = "/create",produces = "application/json",consumes = "application/json")
-    public ResponseEntity<CreateEventResponse> createEvent(@RequestHeader("Authorization") @Valid @RequestBody CreateEventRequest createEventRequest){
-        return ResponseEntity.status(HttpStatus.CREATED).body(eventUseCase.createEvent(createEventRequest));
+    public ResponseEntity<CreateEventResponse> createEvent(@RequestHeader("Authorization") String token, @Valid @RequestBody CreateEventRequest createEventRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(eventUseCase.createEvent(token,createEventRequest));
     }
 
     @PostMapping(value = "/{eventId}/subscribe",produces = "application/json",consumes = "application/json")

@@ -14,7 +14,6 @@ import javax.persistence.Transient;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@AllArgsConstructor
 @Builder
 @Data
 @Entity
@@ -28,9 +27,6 @@ public class EventEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime eventDate;
     private Integer ticketRemaining;
-
-    @Transient
-    private Double ticketValue;
 
     public EventEntity() {
     }

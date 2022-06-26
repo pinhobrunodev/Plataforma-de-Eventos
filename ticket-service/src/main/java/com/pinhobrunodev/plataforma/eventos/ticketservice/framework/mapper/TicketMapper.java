@@ -16,32 +16,20 @@ public class TicketMapper {
     public static Set<TicketEntity> persistTicketConverter(Set<PersistTicketRequest> persistTicketRequestSet) {
         Set<TicketEntity> ticketEntities = new HashSet<>();
         persistTicketRequestSet.stream().forEach(x -> ticketEntities.add(
-                TicketEntity
-                        .builder()
-                        .ticketId(x.getTicketId())
-                        .eventId(x.getEventId())
-                        .ticketValue(x.getTicketValue())
-                        .ownerName(null)
-                        .ownerCpf(null)
-                        .ownerEmail(null)
-                        .ownerUserId(null)
-                        .userBuyerId(null)
-                        .boughtAt(null)
-                        .build()
-        ));
+                new TicketEntity(
+                        x.getTicketId(), x.getEventId(), x.getTicketValue(), null, null,
+                        null, null, null, null)));
         return ticketEntities;
     }
 
     public static TicketEntity confirmTicketBoughtUpdateConverter(TicketEntity ticketEntity, KafkaDto kafkaDto) {
-        return ticketEntity
-                .builder()
-                .ownerName(kafkaDto.getOwnerName())
-                .ownerCpf(kafkaDto.getUserCpf())
-                .ownerEmail(kafkaDto.getUserEmail())
-                .ownerUserId(kafkaDto.getOwnerUserId())
-                .userBuyerId(kafkaDto.getUserBuyerId())
-                .boughtAt(LocalDateTime.now())
-                .build();
+        ticketEntity.setOwnerName(kafkaDto.getOwnerName());
+        ticketEntity.setOwnerCpf(kafkaDto.getUserCpf());
+        ticketEntity.setOwnerEmail(kafkaDto.getUserEmail());
+        ticketEntity.setOwnerUserId(kafkaDto.getOwnerUserId());
+        ticketEntity.setUserBuyerId(kafkaDto.getUserBuyerId());
+        ticketEntity.setBoughtAt(LocalDateTime.now());
+        return ticketEntity;
     }
 
 }

@@ -22,11 +22,12 @@ public class EventMapper {
                 .build();
     }
 
-    public static KafkaDto SendToKafkaConverter(EventEntity eventEntity){
+    public static KafkaDto SendToKafkaConverter(String access_token,EventEntity eventEntity,Double ticketValue){
         var kafkaDto = new KafkaDto();
         kafkaDto.setEventId(eventEntity.getEventId().toString());
         kafkaDto.setTicketRemaining(eventEntity.getTicketRemaining());
-        kafkaDto.setTicketValue(eventEntity.getTicketValue());
+        kafkaDto.setTicketValue(ticketValue);
+        kafkaDto.setAccess_token(access_token);
         return kafkaDto;
     }
 }

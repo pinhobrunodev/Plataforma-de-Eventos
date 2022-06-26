@@ -19,12 +19,14 @@ public class FactoryTicketListener {
     @Autowired
     private TicketServiceOpenFeignUseCase ticketServiceOpenFeignUseCase;
 
-    @KafkaListener(topics = "${topic.name}")
+
+
+    @KafkaListener(topics = "${topic.name.consumer}",groupId = "factory-ticket-group")
     public void factoryTicketConsumer(ConsumerRecord<String, String> payload) {
         log.info("message received from topic : {}", payload);
         final Gson gson = new Gson();
         var kafkaListenerDto = gson.fromJson(payload.value(), KafkaListenerDto.class);
-        ticketServiceOpenFeignUseCase.persistTickets(factoryTicketUseCase.generateTickets(kafkaListenerDto));
+        ticketServiceOpenFeignUseCase.persistTickets(kafkaListenerDto.getAccess_token(),factoryTicketUseCase.generateTickets(kafkaListenerDto));
     }
 
 

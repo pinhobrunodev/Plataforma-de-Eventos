@@ -11,5 +11,6 @@ public class KafkaDto {
     private String eventId;
     private Integer ticketRemaining;
     private Double ticketValue;
+    private String access_token;
 
 }

@@ -4,6 +4,6 @@ import com.pinhobrunodev.plataforma.eventos.eventservice.domain.entities.EventEn
 
 public interface EventKafkaProducerUseCase {
 
-    void produceKafkaMessage(EventEntity eventEntity);
+    void produceKafkaMessage(String token,EventEntity eventEntity,Double ticketValue);
 
 }

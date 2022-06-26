@@ -18,9 +18,9 @@ public class EventKafkaProducerUseCaseImpl implements EventKafkaProducerUseCase 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
-    public void produceKafkaMessage(EventEntity eventEntity) {
+    public void produceKafkaMessage(String token,EventEntity eventEntity,Double ticketValue) {
         final var gson = new Gson();
-        var payloadToBeSent = gson.toJson(EventMapper.SendToKafkaConverter(eventEntity));
+        var payloadToBeSent = gson.toJson(EventMapper.SendToKafkaConverter(token,eventEntity,ticketValue));
         log.info("payload sent : {}", payloadToBeSent);
         kafkaTemplate.send("event-service-factory-tickets-topic", payloadToBeSent);
     }

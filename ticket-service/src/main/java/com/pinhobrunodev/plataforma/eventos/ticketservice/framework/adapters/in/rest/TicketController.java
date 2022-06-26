@@ -19,7 +19,7 @@ public class TicketController {
     private TicketServiceUseCase ticketServiceUseCase;
 
     @PostMapping(value = "/persist",produces = "application/json",consumes = "application/json")
-    public ResponseEntity<Void> persistTicket(@RequestBody Set<PersistTicketRequest> persistTicketRequestSet){
+    public ResponseEntity<Void> persistTickets(@RequestHeader("Authorization") @RequestBody Set<PersistTicketRequest> persistTicketRequestSet){
         ticketServiceUseCase.persistTicket(persistTicketRequestSet);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

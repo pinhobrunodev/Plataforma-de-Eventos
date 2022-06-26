@@ -46,9 +46,9 @@ public class EventUseCaseImpl implements EventUseCase {
         Create a new Event.
      */
     @Override
-    public CreateEventResponse createEvent(CreateEventRequest createEventRequest) {
+    public CreateEventResponse createEvent(String token,CreateEventRequest createEventRequest) {
         var eventEntity = eventPersistenceUseCase.saveEvent(createEventRequest);
-        eventKafkaProducerUseCase.produceKafkaMessage(eventEntity);
+        eventKafkaProducerUseCase.produceKafkaMessage(token,eventEntity,createEventRequest.getTicketValue());
         return new CreateEventResponse(eventEntity);
     }
 
