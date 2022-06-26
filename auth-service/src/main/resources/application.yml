@@ -1,6 +1,13 @@
 server:
   port: 8080
-
 spring:
   profiles:
     active: test
+security:
+  oauth2:
+    client:
+      client-id: myclientid
+      client-secret: myclientsecret
+jwt:
+  secret: MY-JWT-SECRET
+  duration: 86400

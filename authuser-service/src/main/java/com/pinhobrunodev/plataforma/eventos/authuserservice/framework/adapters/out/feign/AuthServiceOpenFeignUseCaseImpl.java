@@ -16,7 +16,7 @@ public class AuthServiceOpenFeignUseCaseImpl implements AuthServiceOpenFeignUseC
         try {
             authServiceFeignClient.createUser(createUserRequestToAuthServiceDTO);
         }catch (Exception e){
-            throw  new RuntimeException("Erro do outro lado (auth-service)");
+            throw  new RuntimeException("Erro do outro lado (auth-service) - "+e);
         }
     }
 }

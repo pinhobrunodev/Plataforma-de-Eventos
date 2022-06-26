@@ -4,4 +4,8 @@ import com.pinhobrunodev.plataforma.eventos.authservice.domain.entities.UserEnti
 
 public interface UserPersistencePortUseCase {
     void saveUser(UserEntity userEntity);
+
+    UserEntity findByEmail(String email);
+    UserEntity findByUserId(String userId);
+
 }

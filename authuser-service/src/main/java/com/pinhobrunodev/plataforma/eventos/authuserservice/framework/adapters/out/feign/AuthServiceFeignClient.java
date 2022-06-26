@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Component
 @FeignClient(name = "auth-service", url = "${auth.service.endpoint}")
 public interface AuthServiceFeignClient {
-    @PostMapping(value = "/auth/user/save")
+    @PostMapping(value = "/callback/user/save")
     ResponseEntity<Void> createUser(@RequestBody CreateUserRequestToAuthServiceDTO createUserRequestToAuthServiceDTO);
 }
