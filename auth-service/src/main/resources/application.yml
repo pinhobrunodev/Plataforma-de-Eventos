@@ -10,4 +10,4 @@ security:
       client-secret: myclientsecret
 jwt:
   secret: MY-JWT-SECRET
-  duration: 86400
+  duration: 14400000
