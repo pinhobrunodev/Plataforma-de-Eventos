@@ -42,18 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    /*
-            What role is the principal... priority
-            ROLE_USER => ONLY ROLE_USER
-            ROLE_STUDENT => ACCESS STUDENT AND ROLE_USER
-            ROLE_INSTRUCTOR => ACCESS INSTRUCTOR,ROLE_STUDENT AND ROLE_USER
-            ROLE_ADMIN = ACCESS ADMIN, ROLE_INSTRUCTOR_ROLE_STUDENT AND ROLE_USER
-     */
     @Bean
     public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        String hierarchy = "ROLE_ADMIN > ROLE_INSTRUCTOR \n ROLE_INSTRUCTOR > ROLE_STUDENT \n  ROLE_STUDENT > ROLE_USER ";
+        String hierarchy = "ROLE_ADMIN > ROLE_INSTRUCTOR";
         roleHierarchy.setHierarchy(hierarchy);
         return roleHierarchy;
     }

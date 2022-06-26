@@ -2,9 +2,11 @@ package com.pinhobrunodev.plataforma.eventos.authservice.framework.adapters.out.
 
 import com.pinhobrunodev.plataforma.eventos.authservice.application.ports.out.UserPersistencePortUseCase;
 import com.pinhobrunodev.plataforma.eventos.authservice.domain.entities.UserEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserPersistencePortUseCaseImpl implements UserPersistencePortUseCase {
 

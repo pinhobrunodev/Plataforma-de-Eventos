@@ -20,7 +20,7 @@ public class WalletKafkaListener {
     public void listen(ConsumerRecord<String, String> payload) {
         final var gson = new Gson();
         var payloadValue = gson.fromJson(payload.value(), KafkaDto.class);
-        log.info("payload received : {}",payload);
+        log.info("payload received : {}",payloadValue);
         walletUseCase.createWallet(payloadValue);
     }
 
