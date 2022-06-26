@@ -4,6 +4,6 @@ import com.pinhobrunodev.plataforma.eventos.eventservice.domain.openfeign.respon
 
 public interface TicketServiceOpenFeignUseCase {
 
-    TicketValueResponse getTicketValue(String eventId);
+    TicketValueResponse getTicketValue(String token,String eventId);
 
 }

@@ -54,7 +54,7 @@ public class UserMapper {
                 .userId(userEntity.getUserId().toString())
                 .userEmail(userEntity.getUserEmail())
                 .userPassword(userEntity.getUserPassword())
-                .roleName("ROLE_BASIC")
+                .roleName("ROLE_ADMIN")
                 .build();
     }
 }

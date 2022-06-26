@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "ticket-service", url = "${authuser.service.endpoint}")
+@FeignClient(name = "user-service", url = "${user.service.endpoint}")
 public interface AuthUserFeignClient {
 
     @GetMapping(value = "/cpf/{cpf}")

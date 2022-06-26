@@ -8,6 +8,7 @@ import com.pinhobrunodev.plataforma.eventos.eventservice.domain.dtos.response.Cr
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,14 +21,15 @@ public class EventController {
     @Autowired
     private EventUseCase eventUseCase;
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(value = "/create",produces = "application/json",consumes = "application/json")
-    public ResponseEntity<CreateEventResponse> createEvent(@Valid @RequestBody CreateEventRequest createEventRequest){
+    public ResponseEntity<CreateEventResponse> createEvent(@RequestHeader("Authorization") @Valid @RequestBody CreateEventRequest createEventRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(eventUseCase.createEvent(createEventRequest));
     }
 
     @PostMapping(value = "/{eventId}/subscribe",produces = "application/json",consumes = "application/json")
-    public ResponseEntity<?> subscribeEvent(@PathVariable UUID eventId, @RequestBody SubscribeEventRequest subscribeEventRequest){
-        return  ResponseEntity.status(HttpStatus.CREATED).body(eventUseCase.subscribeEvent(eventId,subscribeEventRequest));
+    public ResponseEntity<?> subscribeEvent(@RequestHeader("Authorization") String token,@PathVariable UUID eventId, @RequestBody SubscribeEventRequest subscribeEventRequest){
+        return  ResponseEntity.status(HttpStatus.CREATED).body(eventUseCase.subscribeEvent(token,eventId,subscribeEventRequest));
     }
 
     @PutMapping(value = "/{eventId}/reduce/tickets")

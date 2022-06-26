@@ -1,1 +1,23 @@
+server:
+  port: 8083
+spring:
+  profiles:
+    active: test
+security:
+  oauth2:
+    client:
+      client-id: myclientid
+      client-secret: myclientsecret
+jwt:
+  secret: MY-JWT-SECRET
+  duration: 86400
 
+ticket:
+  service:
+    endpoint: http://localhost:8084
+user:
+  service:
+    endpoint: http://localhost:8081
+wallet:
+  service:
+    endpoint: http://localhost:8082

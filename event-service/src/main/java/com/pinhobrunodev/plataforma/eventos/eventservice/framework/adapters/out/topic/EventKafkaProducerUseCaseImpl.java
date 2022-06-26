@@ -22,6 +22,6 @@ public class EventKafkaProducerUseCaseImpl implements EventKafkaProducerUseCase 
         final var gson = new Gson();
         var payloadToBeSent = gson.toJson(EventMapper.SendToKafkaConverter(eventEntity));
         log.info("payload sent : {}", payloadToBeSent);
-        kafkaTemplate.send("event-service-topic", payloadToBeSent);
+        kafkaTemplate.send("event-service-factory-tickets-topic", payloadToBeSent);
     }
 }

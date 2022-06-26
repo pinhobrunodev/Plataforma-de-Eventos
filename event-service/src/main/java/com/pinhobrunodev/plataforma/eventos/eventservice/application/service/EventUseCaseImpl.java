@@ -56,14 +56,14 @@ public class EventUseCaseImpl implements EventUseCase {
         Subscribe to an Event.
      */
     @Override
-    public SubscribeEventResponse subscribeEvent(UUID eventId, SubscribeEventRequest subscribeEventRequest) {
+    public SubscribeEventResponse subscribeEvent(String token,UUID eventId, SubscribeEventRequest subscribeEventRequest) {
         var validationResult = validateTicketsRemaining(eventPersistenceUseCase.getEventById(eventId), subscribeEventRequest.getTicketsQuantity());
         if (validationResult == Boolean.FALSE) {
             throw new RuntimeException("A quantidade de ingressos solicitados ultrapassa o limite máximo para esse evento");
         }
         var totalAmount = computeTotalAmount(
                 subscribeEventRequest.getTicketsQuantity(),
-                ticketServiceOpenFeignUseCase.getTicketValue(String.valueOf(eventId)).getTicketValue());
+                ticketServiceOpenFeignUseCase.getTicketValue(token,String.valueOf(eventId)).getTicketValue());
         var validAmountForTransactionResponse = walletServiceOpenFeignUseCase.getValidationAmountFromWallet(USER_BUYER_CURRENT_ID_FROM_ACCESS_TOKEN, totalAmount);
         if (validAmountForTransactionResponse.getIsValid().booleanValue() == Boolean.TRUE) {
             reduceEventTicketsRemaining(eventId, subscribeEventRequest.getTicketsQuantity());

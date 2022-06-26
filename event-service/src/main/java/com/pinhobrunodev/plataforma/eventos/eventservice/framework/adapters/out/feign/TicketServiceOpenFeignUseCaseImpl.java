@@ -12,9 +12,9 @@ public class TicketServiceOpenFeignUseCaseImpl implements TicketServiceOpenFeign
     private TicketServiceFeignClient ticketServiceFeignClient;
 
     @Override
-    public TicketValueResponse getTicketValue(String eventId) {
+    public TicketValueResponse getTicketValue(String token,String eventId) {
         try {
-            return ticketServiceFeignClient.getTicketValue(eventId).getBody();
+            return ticketServiceFeignClient.getTicketValue(token,eventId).getBody();
         }catch (Exception e){
             throw  new RuntimeException("Alguem erro no outro microserviço - Ticket-Service");
         }

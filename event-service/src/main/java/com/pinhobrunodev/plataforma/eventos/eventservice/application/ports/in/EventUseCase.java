@@ -15,7 +15,7 @@ public interface EventUseCase {
         Controller Use Case
      */
     CreateEventResponse createEvent(CreateEventRequest createEventRequest);
-    SubscribeEventResponse subscribeEvent(UUID eventId, SubscribeEventRequest subscribeEventRequest);
+    SubscribeEventResponse subscribeEvent(String token,UUID eventId, SubscribeEventRequest subscribeEventRequest);
     void reduceEventTicketsRemaining(UUID eventId, Object ticketQuantityToReduce);
 
 
